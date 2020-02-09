@@ -11,6 +11,11 @@ mkdir /website
 s3fs pesbukbucket /website -o passwd_file=/etc/passwd-s3fs -o uid=0 -o gid=0 -o allow_other -o url=https://s3-ap-southeast-1.amazonaws.com
 chmod -R 644 /website/*
 chmod 755 /website/css /website/img /website/js
+sed -i 's/database_name_here/nama-db/g' /website/config.php
+sed -i 's/username_here/nama-pengguna/g' /website/config.php
+sed -i 's/password_here/katasandi/g' /website/config.php
+sed -i 's/localhost/alamat/g' /website/config.php
+sed -i 's/\r$//g' /website/config.php
 
 #nginx
 rm -f /etc/nginx/sites-available/default
