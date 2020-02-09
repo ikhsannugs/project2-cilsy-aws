@@ -3,6 +3,8 @@ apt-get update
 apt-get install unzip
 wget https://codeload.github.com/ikhsannugs/project2cilsy/zip/master
 unzip /master
+access:secret
+sed -i 's/access:secret/change-this/g' /project2cilsy-master/webserver.sh
 sed -i 's/nama-db/dbsosmed/g' /project2cilsy-master/webserver.sh
 sed -i 's/nama-pengguna/admin/g' /project2cilsy-master/webserver.sh
 sed -i 's/katasandi/abcd1234567890/g' /project2cilsy-master/webserver.sh
