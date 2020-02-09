@@ -3,6 +3,8 @@ apt install software-properties-common
 add-apt-repository -y  ppa:nginx/stable
 apt-get update
 apt-get install -y nginx php7.2-fpm git php7.2-mysql mysql-client-5.7 s3fs 
+
+#mounting-s3
 echo access:secret > /etc/passwd-s3fs
 chmod 640 /etc/passwd-s3fs
 mkdir /website
@@ -10,9 +12,18 @@ s3fs pesbukbucket /website -o passwd_file=/etc/passwd-s3fs -o uid=0 -o gid=0 -o 
 chmod -R 644 /website/*
 chmod 755 /website/css /website/img /website/js
 
+#nginx
+rm -f /etc/nginx/sites-available/default
+rm -f /etc/nginx/sites-enabled/default
+cp /project2cilsy-master/pesbuk.conf /etc/nginx/sites-available
+ln -s /etc/nginx/sites-available/pesbuk.conf /etc/nginx/sites-enabled/
+systemctl restart php7.2-fpm
+systemctl restart nginx.service
+
+
 #mysql
-mysql -h alamat -u username -p"password" -e "CREATE DATABASE database;"
-mysql -h alamat -u username -p"password" -e "GRANT ALL ON database.* TO 'username'@'%';"
-mysql -h alamat -u username -p"password" -e "FLUSH PRIVILEGES;"
+mysql -h alamat -u nama-pengguna -p"katasandi" -e "CREATE DATABASE nama-db;"
+mysql -h alamat -u nama-pengguna -p"katasandi" -e "GRANT ALL ON nama-db.* TO 'nama-pengguna'@'%';"
+mysql -h alamat -u nama-pengguna -p"katasandi" -e "FLUSH PRIVILEGES;"
 cd /website
-mysql -h alamat -u username -p"password" database < dump.sql
+mysql -h alamat -u nama-pengguna -p"katasandi" nama-db < dump.sql
