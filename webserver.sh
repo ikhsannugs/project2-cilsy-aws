@@ -12,7 +12,7 @@ s3fs pesbukbucket /website -o passwd_file=/etc/passwd-s3fs -o uid=0 -o gid=0 -o 
 chmod -R 644 /website/*
 chmod 755 /website/css /website/img /website/js
 mkdir /var/www/website
-cp /website/* /var/www/website
+cp -R /website/* /var/www/website
 sed -i 's/database_name_here/nama-db/g' /var/www/website/config.php
 sed -i 's/username_here/nama-pengguna/g' /var/www/website/config.php
 sed -i 's/password_here/katasandi/g' /var/www/website/config.php
