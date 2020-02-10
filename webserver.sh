@@ -11,11 +11,12 @@ mkdir /website
 s3fs pesbukbucket /website -o passwd_file=/etc/passwd-s3fs -o uid=0 -o gid=0 -o allow_other -o url=https://s3-ap-southeast-1.amazonaws.com
 chmod -R 644 /website/*
 chmod 755 /website/css /website/img /website/js
-sed -i 's/database_name_here/nama-db/g' /website/config.php
-sed -i 's/username_here/nama-pengguna/g' /website/config.php
-sed -i 's/password_here/katasandi/g' /website/config.php
-sed -i 's/localhost/alamat/g' /website/config.php
-sed -i 's/\r$//g' /website/config.php
+cp /website /var/www
+sed -i 's/database_name_here/nama-db/g' /var/www/website/config.php
+sed -i 's/username_here/nama-pengguna/g' /var/www/website/config.php
+sed -i 's/password_here/katasandi/g' /var/www/website/config.php
+sed -i 's/localhost/alamat/g' /var/www/website/config.php
+sed -i 's/\r$//g' /var/www/website/config.php
 
 #nginx
 rm -f /etc/nginx/sites-available/default
@@ -30,5 +31,5 @@ systemctl restart nginx.service
 mysql -h alamat -u nama-pengguna -p"katasandi" -e "CREATE DATABASE nama-db;"
 mysql -h alamat -u nama-pengguna -p"katasandi" -e "GRANT ALL ON nama-db.* TO 'nama-pengguna'@'%';"
 mysql -h alamat -u nama-pengguna -p"katasandi" -e "FLUSH PRIVILEGES;"
-cd /website
+cd /var/www/website
 mysql -h alamat -u nama-pengguna -p"katasandi" nama-db < dump.sql
