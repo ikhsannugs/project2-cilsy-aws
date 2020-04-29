@@ -1,0 +1,13 @@
+#!/bin/bash
+apt-get update
+apt-get install unzip
+wget https://codeload.github.com/ikhsannugs/project2cilsy/zip/master
+unzip /master
+sed -i 's/access:secret/change-this/g' /project2cilsy-master/webserver.sh
+sed -i 's/nama-db/dbsosmed/g' /project2cilsy-master/webserver.sh
+sed -i 's/nama-pengguna/admin/g' /project2cilsy-master/webserver.sh
+sed -i 's/katasandi/abcd1234567890/g' /project2cilsy-master/webserver.sh
+sed -i 's/alamat/database-1.citrm16v9p2y.ap-southeast-1.rds.amazonaws.com/g' /project2cilsy-master/webserver.sh
+sed -i 's/\r$//g' /project2cilsy-master/webserver.sh
+sudo chmod 500 /project2cilsy-master/webserver.sh
+/bin/bash /project2cilsy-master/webserver.sh
